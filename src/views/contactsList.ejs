@@ -32,22 +32,26 @@
 
 <body>
     <h2>Contacts <a href="/add"><button>Add Contacts</button></a></h2>
-    <% for(const contact of contactsList) { %>
-        <h3>Name: <%= contact.name %></h3>
-        <p>Address: <%= contact.address %></p>
-        <p>Mail: <%= contact.mail %></p>
-        <p>Phone: <%= contact.phone %></p>
+    <% const itemsPerPage = 3; %>
+    <% const totalPages = Math.ceil(contactsList.length / itemsPerPage); %>
+
+        <% for (const contact of contactsList) { %>
+            <h3>Name: <%= contact.name %></h3>
+            <p>Address: <%= contact.address %></p>
+            <p>Mail: <%= contact.mail %></p>
+            <p>Phone: <%= contact.phone %></p>
         <% } %>
-            <div class="pagination">
-                <a href="#">«</a>
-                <a href="http://localhost:3000/product/list?offset=0&limit=3">1</a>
-                <a href="http://localhost:3000/product/list?offset=1&limit=3">2</a>
-                <a href="http://localhost:3000/product/list?offset=2&limit=3">3</a>
-                <a href="http://localhost:3000/product/list?offset=3&limit=3">4</a>
-                <a href="http://localhost:3000/product/list?offset=4&limit=3">5</a>
-                <a href="http://localhost:3000/product/list?offset=5&limit=3">6</a>
-                <a href="#">»</a>
-            </div>
+                <div class="pagination">
+                    <a href="#">«</a>
+                    <% for (let page = 1; page <= totalPages + 1; page++) { %>
+                        <a href="/home?offset=<%= (page - 1) * itemsPerPage %>&limit=<%= itemsPerPage %>">
+                            <%= page %>
+                        </a>
+                        <% } %>
+                            <a href="#">»</a>
+                </div>
+
+
 </body>
 
 </html>
